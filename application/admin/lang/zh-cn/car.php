@@ -11,9 +11,10 @@ return [
     'Start_time'  =>  '开通时间',
     'End_time'  =>  '到期时间',
     'Join_type'  =>  '接入平台',
-    'Ip'  =>  'ip地址及端口',
+    'Ip'  =>  'ip及端口',
     'Factory'  =>  '设备厂家',
     'Join_ways'  =>  '接入类型',
     'Info'  =>  '备注',
-    'Money'  =>  '金额'
+    'Money'  =>  '金额',
+    'Iimit_day'  =>  '剩余天数'
 ];

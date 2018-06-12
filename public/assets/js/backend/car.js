@@ -25,6 +25,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                     [
                         {checkbox: true},
                         {field: 'id', title: __('Id')},
+                        {field: 'limit_day', title: __('Iimit_day')},
                         {field: 'name', title: __('Name')},
                         {field: 'mobile', title: __('Mobile')},
                         {field: 'car_number', title: __('Car_number')},
