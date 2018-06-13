@@ -29,7 +29,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                         {field: 'limit_day', title: __('Iimit_day')},
                         {field: 'name', title: __('Name')},
                         {field: 'mobile', title: __('Mobile')},
-                        {field: 'car_number', title: __('Car_number')},
+                        {field: 'car_number', title: __('Car_number'),operate: 'LIKE %...%'},
                         {field: 'car_set_number', title: __('Car_set_number')},
                         {field: 'card_number', title: __('Card_number')},
                         {field: 'service_day', title: __('Service_day')},

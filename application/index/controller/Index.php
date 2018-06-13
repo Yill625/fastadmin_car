@@ -19,6 +19,8 @@ class Index extends Frontend
 
     public function index()
     {
+        $url = request()->domain().'/admin/index/login.html';
+        header("Location: ".$url);
         return $this->view->fetch();
     }
 
