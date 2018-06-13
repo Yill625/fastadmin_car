@@ -21,16 +21,4 @@ class Card extends Model
 
     ];
 
-    public function setAdminIdAttr($value)
-    {
-        return 1;
-    }
-
-
-
-
-
-
-
-
 }
