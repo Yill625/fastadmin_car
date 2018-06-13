@@ -10,6 +10,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                     edit_url: 'card/edit',
                     del_url: 'card/del',
                     multi_url: 'card/multi',
+                    import_url: 'card/import',
                     table: 'card',
                 }
             });
