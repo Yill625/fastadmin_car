@@ -48,6 +48,11 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
 
             // 为表格绑定事件
             Table.api.bindevent(table);
+
+                        // 获取选中项
+            $(document).on("click", ".btn-selected", function () {
+                Layer.alert(JSON.stringify(table.bootstrapTable('getSelections')));
+            });
         },
         add: function () {
             Controller.api.bindevent();
