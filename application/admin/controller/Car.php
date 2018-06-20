@@ -3,7 +3,7 @@
 namespace app\admin\controller;
 
 use app\common\controller\Backend;
-
+use addons\clsms\library;
 /**
  *
  *
@@ -223,6 +223,15 @@ class Car extends Backend
             $this->error($e->getError());
         }
 
+    }
+
+    public function sendMessage()
+    {
+        $clsms = new library\Clsms();
+        $result = $clsms->smstype(0)->mobile('17688766150')
+                ->msg('疲劳提醒：您好，我是监控中心工作人员，发现贵司车辆闽11已经疲劳驾驶14分钟，请注意行车安全，靠边停车休息。')
+                ->send();
+        var_dump($result);die;
     }
 
 }

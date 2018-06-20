@@ -51,7 +51,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
 
                         // 获取选中项
             $(document).on("click", ".btn-selected", function () {
-                Layer.alert(JSON.stringify(table.bootstrapTable('getSelections')));
+                Backend.api.open('car/sendMessage/' + $(this).data('id'), __('Detail'));
             });
         },
         add: function () {
