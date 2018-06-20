@@ -1,23 +1,59 @@
-<form id="add-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+<form id="add-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="/admin/car/sendMessage">
 
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2">发送手机号:</label>
         <div class="col-xs-12 col-sm-8">
-            <input id="c-mobile" class="form-control" name="row[mobile]" type="text" value="{$row['mobile']}">
+            <input id="c-mobile" class="form-control" name="mobile" type="text" value="{$row['mobile']}">
         </div>
     </div>
     <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2">{:__('Group')}:</label>
+        <label class="control-label col-xs-12 col-sm-2">发送模板:</label>
         <div class="col-xs-12 col-sm-8">
-            {:build_select('row[name]', $groupdata, null, ['class'=>'form-control', 'data-rule'=>'required'])}
+            {:build_select('tem', $groupdata, null, ['class'=>'form-control','id'=>'c-name', 'data-rule'=>'required' ,'onchange'=>'gradeChange()'])}
         </div>
     </div>
-
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">发送内容:</label>
+        <div class="col-xs-12 col-sm-8">
+            <textarea id="c-texts" class="form-control" name="msg"></textarea>
+        </div>
+    </div>
     <div class="form-group layer-footer">
         <label class="control-label col-xs-12 col-sm-2"></label>
         <div class="col-xs-12 col-sm-8">
-            <button type="submit" class="btn btn-success btn-embossed">{:__('OK')}</button>
-            <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+            <button type="submit" class="btn btn-success btn-embossed">确认发送</button>
         </div>
     </div>
 </form>
+
+
+<script type="text/javascript">
+    var myselect=document.getElementById("c-name");
+    var index=myselect.selectedIndex;
+    var url = "/admin/car/ajax/ids/"+myselect.options[index].value;
+    getAjax(url);
+    function getAjax(url){
+        //步骤一:创建异步对象
+        var ajax = new XMLHttpRequest();
+        //步骤二:设置请求的url参数,参数一是请求的类型,参数二是请求的url,可以带参数,动态的传递参数starName到服务端
+        ajax.open('get',url);
+        //步骤三:发送请求
+        ajax.send();
+        //步骤四:注册事件 onreadystatechange 状态改变就会调用
+        ajax.onreadystatechange = function () {
+        if (ajax.readyState==4 &&ajax.status==200) {
+        //步骤五 如果能够进到这个判断 说明 数据 完美的回来了,并且请求的页面是存在的
+        　　　　console.log();//输入相应的内容
+                document.getElementById("c-texts").innerText=JSON.parse(ajax.responseText).texts;
+        　　}
+        }
+    }
+
+    function gradeChange(){
+        var myselect=document.getElementById("c-name");
+        var index=myselect.selectedIndex;
+        var url = "/admin/car/ajax/ids/"+myselect.options[index].value;
+        getAjax(url);
+    }
+
+</script>

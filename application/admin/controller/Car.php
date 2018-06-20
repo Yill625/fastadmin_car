@@ -227,10 +227,13 @@ class Car extends Backend
 
     public function sendMessage()
     {
+        $msg = request()->post('msg');
+        $mobile = request()->post('mobile');
+        $car='12321321';var_dump("$msg");die;
         $clsms = new library\Clsms();
-        $result = $clsms->smstype(0)->mobile('17712196539')
-                ->msg('')
-                ->send();
+        // $result = $clsms->smstype(0)->mobile('17712196539')
+        //         ->msg('')
+        //         ->send();
         var_dump($result);die;
     }
 
@@ -248,8 +251,21 @@ class Car extends Backend
             }
         }
         $this->view->assign("row", $row);
-        $this->view->assign("groupdata", ['1'=>'测试']);
+
+        //模板
+        $tem = model('Smstemplet')->all();
+        $temp=[];
+        foreach ($tem as $key => $value) {
+            $temp[$value->id]=$value->name;
+        }
+        $this->view->assign("groupdata", $temp);
         return $this->view->fetch();
+    }
+
+    public function ajax($ids)
+    {
+        $tem = model('Smstemplet')->get($ids);
+        return json($tem);
     }
 
 }
