@@ -228,10 +228,28 @@ class Car extends Backend
     public function sendMessage()
     {
         $clsms = new library\Clsms();
-        $result = $clsms->smstype(0)->mobile('17688766150')
-                ->msg('疲劳提醒：您好，我是监控中心工作人员，发现贵司车辆闽11已经疲劳驾驶14分钟，请注意行车安全，靠边停车休息。')
+        $result = $clsms->smstype(0)->mobile('17712196539')
+                ->msg('')
                 ->send();
         var_dump($result);die;
+    }
+
+    public function param($ids = NULL)
+    {
+        $row = $this->model->get($ids);
+        if (!$row)
+            $this->error(__('No Results were found'));
+        $adminIds = $this->getDataLimitAdminIds();
+        if (is_array($adminIds))
+        {
+            if (!in_array($row[$this->dataLimitField], $adminIds))
+            {
+                $this->error(__('You have no permission'));
+            }
+        }
+        $this->view->assign("row", $row);
+        $this->view->assign("groupdata", ['1'=>'测试']);
+        return $this->view->fetch();
     }
 
 }
