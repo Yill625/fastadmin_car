@@ -225,25 +225,40 @@ class Car extends Backend
 
     }
 
-    public function sendMessage()
-    {
-        $msg = request()->post('msg');
-        $mobile = request()->post('mobile');
-        $car='12321321';
-        $clsms = new library\Clsms();
-        $result=1;
-        // $result = $clsms->smstype(0)->mobile('17712196539')
-        //         ->msg('')
-        //         ->send();
-        if ($result) {
-            model('Smsrecord')->recordSms($this->auth->id,$mobile,$msg,1);
-            model('Moneyrecord')->recordMoney($this->auth->id,0,0.05,'发送短信');
-            $this->success();
-        }
-    }
+    // public function sendMessage()
+    // {
+    //     $msg = request()->post('msg');
+    //     $mobile = request()->post('mobile');
+    //     $car='12321321';
+    //     $clsms = new library\Clsms();
+    //     $result=1;
+    //     // $result = $clsms->smstype(0)->mobile('17712196539')
+    //     //         ->msg('')
+    //     //         ->send();
+    //     if ($result) {
+    //         model('Smsrecord')->recordSms($this->auth->id,$mobile,$msg,1);
+    //         model('Moneyrecord')->recordMoney($this->auth->id,0,0.05,'发送短信');
+    //         $this->success();
+    //     }
+    // }
 
     public function param($ids = NULL)
     {
+        if ($this->request->isPost()){
+            $msg = request()->post('msg');
+            $mobile = request()->post('mobile');
+            $car='12321321';
+            $clsms = new library\Clsms();
+            $result=1;
+            // $result = $clsms->smstype(0)->mobile('17712196539')
+            //         ->msg('')
+            //         ->send();
+            if ($result) {
+                model('Smsrecord')->recordSms($this->auth->id,$mobile,$msg,1);
+                model('Moneyrecord')->recordMoney($this->auth->id,0,0.05,'发送短信');
+                return json(['code'=>1,'msg'=>'发送成功']);
+            }
+        }
         $row = $this->model->get($ids);
         if (!$row)
             $this->error(__('No Results were found'));
