@@ -229,12 +229,17 @@ class Car extends Backend
     {
         $msg = request()->post('msg');
         $mobile = request()->post('mobile');
-        $car='12321321';var_dump("$msg");die;
+        $car='12321321';
         $clsms = new library\Clsms();
+        $result=1;
         // $result = $clsms->smstype(0)->mobile('17712196539')
         //         ->msg('')
         //         ->send();
-        var_dump($result);die;
+        if ($result) {
+            model('Smsrecord')->recordSms($this->auth->id,$mobile,$msg,1);
+            model('Moneyrecord')->recordMoney($this->auth->id,0,0.05,'发送短信');
+            $this->success();
+        }
     }
 
     public function param($ids = NULL)
