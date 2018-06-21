@@ -256,7 +256,7 @@ class Car extends Backend
             if ($result) {
                 model('Smsrecord')->recordSms($this->auth->id,$mobile,$msg,1);
                 model('Moneyrecord')->recordMoney($this->auth->id,0,0.05,'发送短信');
-                return json(['code'=>1,'msg'=>'发送成功']);
+                $this->success('短信已成功发送，点击右上角关闭','','',10);
             }
         }
         $row = $this->model->get($ids);
@@ -284,7 +284,12 @@ class Car extends Backend
 
     public function ajax($ids)
     {
+        $id=request()->param()['id'];
+        $car= $this->model->get($id);
         $tem = model('Smstemplet')->get($ids);
+        // if ($tem->name=='疲劳提醒') {
+            $tem->texts= str_replace('car',$car->car_number,$tem->texts);
+        //}
         return json($tem);
     }
 

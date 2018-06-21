@@ -16,12 +16,14 @@
         <label class="control-label col-xs-12 col-sm-2">发送内容:</label>
         <div class="col-xs-12 col-sm-8">
             <textarea id="c-texts" class="form-control" name="msg" form="add-form"></textarea>
+            <label class="">将文本框内 # 换成自定义内容:</label>
         </div>
     </div>
+
     <div class="form-group layer-footer">
         <label class="control-label col-xs-12 col-sm-2"></label>
         <div class="col-xs-12 col-sm-8">
-            <button  onclick="ajaxSumbit()">确认发送</button>
+            <button  type="submit" class="btn btn-success btn-embossed ">确认发送</button>
         </div>
     </div>
 </form>
@@ -30,13 +32,13 @@
 <script type="text/javascript">
     var myselect=document.getElementById("c-name");
     var index=myselect.selectedIndex;
-    var url = "/admin/car/ajax/ids/"+myselect.options[index].value;
+    var url = "/admin/car/ajax/ids/"+myselect.options[index].value+'/id/'+"{$row['id']}";
     getAjax(url);
     function getAjax(url){
         //步骤一:创建异步对象
         var ajax = new XMLHttpRequest();
         //步骤二:设置请求的url参数,参数一是请求的类型,参数二是请求的url,可以带参数,动态的传递参数starName到服务端
-        ajax.open('get',url);
+        ajax.open('post',url);
         //步骤三:发送请求
         ajax.send();
         //步骤四:注册事件 onreadystatechange 状态改变就会调用
@@ -52,7 +54,7 @@
     function gradeChange(){
         var myselect=document.getElementById("c-name");
         var index=myselect.selectedIndex;
-        var url = "/admin/car/ajax/ids/"+myselect.options[index].value;
+        var url = "/admin/car/ajax/ids/"+myselect.options[index].value+'/id/'+"{$row['id']}";
         getAjax(url);
     }
 
