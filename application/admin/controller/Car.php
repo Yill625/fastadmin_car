@@ -225,20 +225,40 @@ class Car extends Backend
 
     }
 
-    public function sendMessage()
-    {
-        $msg = request()->post('msg');
-        $mobile = request()->post('mobile');
-        $car='12321321';var_dump("$msg");die;
-        $clsms = new library\Clsms();
-        // $result = $clsms->smstype(0)->mobile('17712196539')
-        //         ->msg('')
-        //         ->send();
-        var_dump($result);die;
-    }
+    // public function sendMessage()
+    // {
+    //     $msg = request()->post('msg');
+    //     $mobile = request()->post('mobile');
+    //     $car='12321321';
+    //     $clsms = new library\Clsms();
+    //     $result=1;
+    //     // $result = $clsms->smstype(0)->mobile('17712196539')
+    //     //         ->msg('')
+    //     //         ->send();
+    //     if ($result) {
+    //         model('Smsrecord')->recordSms($this->auth->id,$mobile,$msg,1);
+    //         model('Moneyrecord')->recordMoney($this->auth->id,0,0.05,'发送短信');
+    //         $this->success();
+    //     }
+    // }
 
     public function param($ids = NULL)
     {
+        if ($this->request->isPost()){
+            $msg = request()->post('msg');
+            $mobile = request()->post('mobile');
+            $car='12321321';
+            $clsms = new library\Clsms();
+            $result=1;
+            // $result = $clsms->smstype(0)->mobile('17712196539')
+            //         ->msg('')
+            //         ->send();
+            if ($result) {
+                model('Smsrecord')->recordSms($this->auth->id,$mobile,$msg,1);
+                model('Moneyrecord')->recordMoney($this->auth->id,0,0.05,'发送短信');
+                $this->success('短信已成功发送，点击右上角关闭','','',10);
+            }
+        }
         $row = $this->model->get($ids);
         if (!$row)
             $this->error(__('No Results were found'));
@@ -264,7 +284,12 @@ class Car extends Backend
 
     public function ajax($ids)
     {
+        $id=request()->param()['id'];
+        $car= $this->model->get($id);
         $tem = model('Smstemplet')->get($ids);
+        // if ($tem->name=='疲劳提醒') {
+            $tem->texts= str_replace('car',$car->car_number,$tem->texts);
+        //}
         return json($tem);
     }
 
