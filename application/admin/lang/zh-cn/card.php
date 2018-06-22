@@ -8,5 +8,6 @@ return [
     'Start_time'  =>  '开始时间',
     'Service_year'  =>  '服务周期',
     'Notice_time'  =>  '到期提醒',
+    'Name'  =>  '企业名称',
     'Money'  =>  '金额'
 ];

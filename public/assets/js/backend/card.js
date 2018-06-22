@@ -26,7 +26,9 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                     [
                         {checkbox: true},
                         {field: 'id', title: __('Id')},
+                        {field: 'name', title: __('Name')},
                         {field: 'card_number', title: __('Card_number')},
+
                         {field: 'status', title: __('Status'), formatter: Table.api.formatter.status,custom:{'正常': 'success', '未使用': 'danger'}},
                         {field: 'car_number', title: __('Car_number'),operate: 'LIKE %...%'},
                         {field: 'start_time', title: __('Start_time'), operate:'RANGE', addclass:'datetimerange', formatter: Table.api.formatter.datetime},
